@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+using TMPro;
+
 public class CameraPlayer : MonoBehaviour
 {
     // Esto es para llamar a este codigo en otros codigos
@@ -24,10 +27,10 @@ public class CameraPlayer : MonoBehaviour
     // Esto es para determinar si el jugador puede o no rotar la camara
     public bool rotateCamera;
     // Esta es la fuerza con la que va a rotar la camara
-    [SerializeField] float forceR, distanceCamera;
+    [SerializeField] float forceR, distanceCamera, distanceMaxCamera;
     // estas son las posiciones en las que se va a rotar la camara
     private float positionX, positionY;
-
+ 
     [Header("Zoom Camera")]
     // Esto es para determinar si el jugador puede hacer zoom
     public bool zoomCamera;
@@ -124,15 +127,12 @@ public class CameraPlayer : MonoBehaviour
         {
             distanceRay = hit.distance;
 
-            Debug.Log("Colicion con algo");
+           // Debug.Log("Colicion con algo");
             distanceCamera = distanceRay * smoothnessCamera;
         }
         else
         {
-            if (distanceCamera < 6)
-            {
-                distanceCamera += smoothnessCamera * Time.deltaTime;
-            }
+            distanceCamera = distanceMaxCamera;
         }
     }
     // Esta funcion es para acercar o alejar la camara
