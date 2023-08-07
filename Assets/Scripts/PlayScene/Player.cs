@@ -143,7 +143,8 @@ public class Player : MonoBehaviour
             transform.Rotate(0,moveX * rotateY * Time.deltaTime,0);
 
             transform.Translate(0, 0, moveZ * Time.deltaTime);
-           // rgbP.velocity = new Vector3(moveX, rgbP.velocity.y, moveZ) * Time.deltaTime;
+
+            //rgbP.velocity = new Vector3(moveX, rgbP.velocity.y, rgbP.velocity.z);
         }
     }
     // Esta funcion es como puede saltar el personaje

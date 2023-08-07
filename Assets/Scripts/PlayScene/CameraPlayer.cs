@@ -38,8 +38,8 @@ public class CameraPlayer : MonoBehaviour
     [SerializeField] float zoom;
 
     [Header("Control collision")]
-    // suavidad de la camara cuando regrese a su posicion normal
-    [SerializeField] float smoothnessCamera;
+    // punto de colicion de la camara
+    [SerializeField] Transform pointCollision;
     // distancia del rayo
     [SerializeField] float distanceRay;
 
@@ -61,19 +61,23 @@ public class CameraPlayer : MonoBehaviour
 
         // Con esto buscamos la posicion el jugador
         playerPosition = GameObject.Find("Capsule(Player)").transform;
+        // buscar el punto de colicion de la camara 
+        pointCollision = GameObject.Find("Punto de colicion").transform;
         // Aca le damos la posicion inicial a el offset
         offSet = transform.position - playerPosition.position;
     }
     // Update is called once per frame
     void Update()
     {
-        FollowPlayerCamera();
         RotateCamera();
         ZoomCamera();
+        PreventTraversingObjects();
     }
+
     // llamar cada 30 fps
     private void FixedUpdate()
     {
+        FollowPlayerCamera();
     }
 
     // dibujar los rayos que sean necesarios
@@ -81,7 +85,8 @@ public class CameraPlayer : MonoBehaviour
     {
         Gizmos.color = Color.green;
         // dibujar la caja de collicion de la camara
-        Gizmos.DrawLine(transform.position, playerPosition.position);
+        Gizmos.DrawLine(playerPosition.position, pointCollision.position);
+
     }
 
     // Esto es para seguir al jugador
@@ -104,8 +109,6 @@ public class CameraPlayer : MonoBehaviour
     {
         if (rotateCamera == true)
         {
-            PreventTraversingObjects();
-
             positionX += forceR * Time.deltaTime * Input.GetAxis("Mouse X");
             positionY -= forceR * Time.deltaTime * Input.GetAxis("Mouse Y");
 
@@ -123,16 +126,19 @@ public class CameraPlayer : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Linecast(playerPosition.position, transform.position, out hit))
+        
+        if (Physics.Linecast(playerPosition.position, pointCollision.position, out hit))
         {
             distanceRay = hit.distance;
-
-           // Debug.Log("Colicion con algo");
-            distanceCamera = distanceRay * smoothnessCamera;
+            // Debug.Log("Colicion con algo");
+            distanceCamera = distanceRay;
         }
         else
         {
-            distanceCamera = distanceMaxCamera;
+            distanceRay = distanceMaxCamera;
+
+            distanceCamera = distanceRay;
+            
         }
     }
     // Esta funcion es para acercar o alejar la camara
