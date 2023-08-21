@@ -72,11 +72,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BottonsPress();
         JumpPlayer();
         PlayerInterative();
     }
+
     // llamada cada 30 fps
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         MovePlayer();
     }
@@ -89,6 +91,42 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireCube(positionPlayer + direccionCube * distanceRay, cubeSize /2.1f);
     }
     // Esta funcion es para mover al personaje
+    private void BottonsPress()
+    {
+        // Botones de movimiento 
+        if (Input.GetKey(KeyCode.W))
+        {
+            imageBottonMove[0].color = Color.yellow;
+        }
+        else
+        {
+            imageBottonMove[0].color = Color.white;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            imageBottonMove[1].color = Color.yellow;
+        }
+        else
+        {
+            imageBottonMove[1].color = Color.white;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            imageBottonMove[2].color = Color.yellow;
+        }
+        else
+        {
+            imageBottonMove[2].color = Color.white;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            imageBottonMove[3].color = Color.yellow;
+        }
+        else
+        {
+            imageBottonMove[3].color = Color.white;
+        }
+    }
     private void MovePlayer()
     {
         if (move == true)
@@ -101,40 +139,6 @@ public class Player : MonoBehaviour
             else
             {
                 speedp = 5;
-            }
-            
-            // Botones al ser presionados
-            if (Input.GetKey(KeyCode.W))
-            {
-                imageBottonMove[0].color = Color.yellow;
-            }
-            else
-            {
-                imageBottonMove[0].color = Color.white;
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                imageBottonMove[1].color = Color.yellow;
-            }
-            else
-            {
-                imageBottonMove[1].color = Color.white;
-            }
-            if (Input.GetKey(KeyCode.D))
-            {
-                imageBottonMove[2].color = Color.yellow;
-            }
-            else
-            {
-                imageBottonMove[2].color = Color.white;
-            }
-            if (Input.GetKey(KeyCode.A))
-            {
-                imageBottonMove[3].color = Color.yellow;
-            }
-            else
-            {
-                imageBottonMove[3].color = Color.white;
             }
 
             float moveX = speedp * Input.GetAxis("Horizontal");

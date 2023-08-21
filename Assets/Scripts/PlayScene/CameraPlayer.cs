@@ -126,20 +126,17 @@ public class CameraPlayer : MonoBehaviour
     {
         RaycastHit hit;
 
-        
         if (Physics.Linecast(playerPosition.position, pointCollision.position, out hit))
         {
             distanceRay = hit.distance;
             // Debug.Log("Colicion con algo");
-            distanceCamera = distanceRay;
         }
         else
         {
-            distanceRay = distanceMaxCamera;
-
-            distanceCamera = distanceRay;
-            
+            distanceRay = distanceMaxCamera;       
         }
+
+        distanceCamera = distanceRay;
     }
     // Esta funcion es para acercar o alejar la camara
     private void ZoomCamera()
